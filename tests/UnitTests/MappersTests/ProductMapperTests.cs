@@ -1,17 +1,21 @@
 ﻿using GatewayOcelot.API.Entities;
+using GatewayOcelot.API.Interfaces.Mappers;
 using GatewayOcelot.API.Mappers;
 using GatewayOcelot.API.Settings.PaginationSettings;
+using Moq;
 using UnitTests.TestBuilders;
 
 namespace UnitTests.MappersTests;
 
 public sealed class ProductMapperTests
 {
+    private readonly Mock<IAddressMapper> _addressMapperMock;
     private readonly ProductMapper _productMapper;
 
     public ProductMapperTests()
     {
-        _productMapper = new ProductMapper();
+        _addressMapperMock = new Mock<IAddressMapper>();
+        _productMapper = new ProductMapper(_addressMapperMock.Object);
     }
 
     [Fact]
@@ -28,7 +32,7 @@ public sealed class ProductMapperTests
         Assert.Equal(productResult.Description, productCreateRequest.Description);
         Assert.Equal(productResult.Price, productCreateRequest.Price);
         Assert.Equal(productResult.ManufacturedDate, productCreateRequest.ManufacturedDate);
-        Assert.Equal(productResult.Address, productCreateRequest.Address);
+        Assert.Null(productResult.Address);
     }
 
     [Fact]
@@ -46,7 +50,7 @@ public sealed class ProductMapperTests
         Assert.Equal(productResult.Description, productUpdateRequest.Description);
         Assert.Equal(productResult.Price, productUpdateRequest.Price);
         Assert.Equal(productResult.ManufacturedDate, productUpdateRequest.ManufacturedDate);
-        Assert.Equal(productResult.Address, productUpdateRequest.Address);
+        Assert.Null(productResult.Address);
     }
 
     [Fact]
@@ -54,6 +58,10 @@ public sealed class ProductMapperTests
     {
         // A
         var product = ProductBuilder.NewObject().DomainBuild();
+
+        var addressResponse = AddressBuilder.NewObject().ResponseBuild();
+        _addressMapperMock.Setup(a => a.DomainToResponse(It.IsAny<Address>()))
+            .Returns(addressResponse);
 
         // A
         var productResponseResult = _productMapper.DomainToResponse(product);
@@ -64,8 +72,7 @@ public sealed class ProductMapperTests
         Assert.Equal(productResponseResult.Description, product.Description);
         Assert.Equal(productResponseResult.Price, product.Price);
         Assert.Equal(productResponseResult.ManufacturedDate, product.ManufacturedDate);
-        Assert.Equal(productResponseResult.CreatedDate, product.CreatedDate);
-        Assert.Equal(productResponseResult.Address, product.Address);
+        Assert.Equal(productResponseResult.Address, addressResponse);
     }
 
     [Fact]
@@ -84,6 +91,11 @@ public sealed class ProductMapperTests
             TotalCount = 9343945,
             TotalPages = 2
         };
+
+        var addressResponse = AddressBuilder.NewObject().ResponseBuild();
+        _addressMapperMock.SetupSequence(a => a.DomainToResponse(It.IsAny<Address>()))
+            .Returns(addressResponse)
+            .Returns(addressResponse);
 
         // A
         var productResponsePageListResult = _productMapper.DomainPageListToResponsePageList(productPageList);

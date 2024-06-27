@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using GatewayOcelot.API.DataTransferObjects.Product;
 using GatewayOcelot.API.Entities;
+using GatewayOcelot.API.Enums;
+using GatewayOcelot.API.Extensions;
 using GatewayOcelot.API.Interfaces.Data.Repositories;
 using GatewayOcelot.API.Interfaces.Mappers;
 using GatewayOcelot.API.Interfaces.Services;
@@ -12,6 +14,7 @@ namespace GatewayOcelot.API.Services;
 public sealed class ProductService(
     IProductRepository productRepository,
     IProductMapper productMapper,
+    IZipCodeService zipCodeService,
     IValidator<Product> validator,
     INotificationHandler notificationHandler)
     : IProductService
@@ -19,6 +22,17 @@ public sealed class ProductService(
     public async Task AddAsync(ProductCreateRequest productCreateRequest)
     {
         var product = productMapper.CreateToDomain(productCreateRequest);
+
+        var address =  await zipCodeService.GetAddressByRequestAsync(productCreateRequest.Address);
+
+        if (address is null)
+        {
+            notificationHandler.AddNotification(nameof(ENotificationMessages.NotFound), ENotificationMessages.NotFound.Description().FormatTo("Address"));
+
+            return;
+        }
+
+        product.Address = address;
 
         if (!await IsValidAsync(product))
         {
@@ -32,12 +46,23 @@ public sealed class ProductService(
     {
         if (!await productRepository.ExistsAsync(productUpdateRequest.Id))
         {
-            notificationHandler.AddNotification("Not Found", "Product not found");
+            notificationHandler.AddNotification(nameof(ENotificationMessages.NotFound), ENotificationMessages.NotFound.Description().FormatTo("Product"));
 
             return;
         }
 
         var product = productMapper.UpdateToDomain(productUpdateRequest);
+
+        var address = await zipCodeService.GetAddressByRequestAsync(productUpdateRequest.Address);
+
+        if (address is null)
+        {
+            notificationHandler.AddNotification(nameof(ENotificationMessages.NotFound), ENotificationMessages.NotFound.Description().FormatTo("Address"));
+
+            return;
+        }
+
+        product.Address = address;
 
         if (!await IsValidAsync(product))
         {
@@ -51,7 +76,7 @@ public sealed class ProductService(
     {
         if (!await productRepository.ExistsAsync(id))
         {
-            notificationHandler.AddNotification("Not Found", "Product not found");
+            notificationHandler.AddNotification(nameof(ENotificationMessages.NotFound), ENotificationMessages.NotFound.Description().FormatTo("Product"));
 
             return;
         }

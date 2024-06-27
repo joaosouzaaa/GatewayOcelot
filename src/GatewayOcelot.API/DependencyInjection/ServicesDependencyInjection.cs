@@ -5,6 +5,9 @@ namespace GatewayOcelot.API.DependencyInjection;
 
 internal static class ServicesDependencyInjection
 {
-    internal static void AddServicesDependencyInjection(this IServiceCollection services) =>
+    internal static void AddServicesDependencyInjection(this IServiceCollection services)
+    {
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IZipCodeService, ZipCodeService>();
+    }
 }

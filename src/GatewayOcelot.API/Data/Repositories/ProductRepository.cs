@@ -9,7 +9,7 @@ namespace GatewayOcelot.API.Data.Repositories;
 
 public sealed class ProductRepository(IMongoDbContext dbContext) : IProductRepository
 {
-    private IMongoCollection<Product> _collection = dbContext.GetCollection<Product>(CollectionsConstants.ProductCollection);
+    private readonly IMongoCollection<Product> _collection = dbContext.GetCollection<Product>(CollectionsConstants.ProductCollection);
 
     public Task InsertOneAsync(Product product) =>
         _collection.InsertOneAsync(product);

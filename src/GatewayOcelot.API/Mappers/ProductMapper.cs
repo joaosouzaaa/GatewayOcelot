@@ -5,7 +5,7 @@ using GatewayOcelot.API.Settings.PaginationSettings;
 
 namespace GatewayOcelot.API.Mappers;
 
-public sealed class ProductMapper : IProductMapper
+public sealed class ProductMapper(IAddressMapper addressMapper) : IProductMapper
 {
     public Product CreateToDomain(ProductCreateRequest productCreateRequest) =>
         new()
@@ -13,9 +13,7 @@ public sealed class ProductMapper : IProductMapper
             Name = productCreateRequest.Name,
             Description = productCreateRequest.Description,
             Price = productCreateRequest.Price,
-            ManufacturedDate = productCreateRequest.ManufacturedDate,
-            CreatedDate = DateTime.UtcNow,
-            Address = productCreateRequest.Address
+            ManufacturedDate = productCreateRequest.ManufacturedDate
         };
 
     public Product UpdateToDomain(ProductUpdateRequest productUpdateRequest) =>
@@ -25,8 +23,7 @@ public sealed class ProductMapper : IProductMapper
             Name = productUpdateRequest.Name,
             Description = productUpdateRequest.Description,
             Price = productUpdateRequest.Price,
-            ManufacturedDate = productUpdateRequest.ManufacturedDate,
-            Address = productUpdateRequest.Address
+            ManufacturedDate = productUpdateRequest.ManufacturedDate
         };
 
     public ProductResponse DomainToResponse(Product product) =>
@@ -35,8 +32,7 @@ public sealed class ProductMapper : IProductMapper
             product.Description,
             product.Price,
             product.ManufacturedDate,
-            product.CreatedDate,
-            product.Address);
+            addressMapper.DomainToResponse(product.Address));
 
     public PageList<ProductResponse> DomainPageListToResponsePageList(PageList<Product> productPageList) =>
         new()

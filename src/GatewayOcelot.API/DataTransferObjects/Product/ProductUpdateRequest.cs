@@ -1,4 +1,4 @@
-﻿using GatewayOcelot.API.Entities;
+﻿using GatewayOcelot.API.DataTransferObjects.Address;
 
 namespace GatewayOcelot.API.DataTransferObjects.Product;
 
@@ -8,4 +8,4 @@ public sealed record ProductUpdateRequest(
     string Description,
     decimal Price,
     DateTime ManufacturedDate,
-    Address Address);
+    AddressRequest Address);

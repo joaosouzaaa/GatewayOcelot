@@ -1,4 +1,5 @@
-﻿using GatewayOcelot.API.DataTransferObjects.Product;
+﻿using GatewayOcelot.API.DataTransferObjects.Address;
+using GatewayOcelot.API.DataTransferObjects.Product;
 using GatewayOcelot.API.Entities;
 
 namespace UnitTests.TestBuilders;
@@ -12,6 +13,7 @@ public sealed class ProductBuilder
     private readonly DateTime _manufacturedDate = DateTime.UtcNow;
     private readonly DateTime _createdDate = DateTime.UtcNow;
     private Address _address = AddressBuilder.NewObject().DomainBuild();
+    private readonly AddressRequest _addressRequest = AddressBuilder.NewObject().RequestBuild();
 
     public static ProductBuilder NewObject() =>
         new();
@@ -33,7 +35,7 @@ public sealed class ProductBuilder
             _description,
             _price,
             _manufacturedDate,
-            _address);
+            _addressRequest);
 
     public ProductUpdateRequest UpdateRequestBuild() =>
         new(_id,
@@ -41,7 +43,7 @@ public sealed class ProductBuilder
             _description,
             _price,
             _manufacturedDate,
-            _address);
+            _addressRequest);
 
     public ProductResponse ResponseBuild() =>
         new(_id,
@@ -50,7 +52,7 @@ public sealed class ProductBuilder
             _price,
             _manufacturedDate,
             _createdDate,
-            _address);
+            AddressBuilder.NewObject().ResponseBuild());
 
     public ProductBuilder WithName(string name)
     {

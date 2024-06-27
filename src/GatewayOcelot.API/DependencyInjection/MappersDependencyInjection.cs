@@ -5,6 +5,9 @@ namespace GatewayOcelot.API.DependencyInjection;
 
 internal static class MappersDependencyInjection
 {
-    internal static void AddMappersDependencyInjection(this IServiceCollection services) =>
+    internal static void AddMappersDependencyInjection(this IServiceCollection services)
+    {
+        services.AddScoped<IAddressMapper, AddressMapper>();
         services.AddScoped<IProductMapper, ProductMapper>();
+    }
 }

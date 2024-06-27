@@ -8,6 +8,7 @@ internal static class DependencyInjectionHandler
         services.AddOptionsDependencyInjection(configuration);
         services.AddInfrastructureDependencyInjection();
         services.AddSettingsDependencyInjection();
+        services.AddHttpClientDependencyInjection(configuration);
         services.AddMappersDependencyInjection();
         services.AddServicesDependencyInjection();
     }
