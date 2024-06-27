@@ -11,7 +11,6 @@ public sealed class ProductBuilder
     private string _description = "randomword1";
     private decimal _price = 123;
     private readonly DateTime _manufacturedDate = DateTime.UtcNow;
-    private readonly DateTime _createdDate = DateTime.UtcNow;
     private Address _address = AddressBuilder.NewObject().DomainBuild();
     private readonly AddressRequest _addressRequest = AddressBuilder.NewObject().RequestBuild();
 
@@ -26,7 +25,6 @@ public sealed class ProductBuilder
             Description = _description,
             Price = _price,
             ManufacturedDate = _manufacturedDate,
-            CreatedDate = _createdDate,
             Address = _address
         };
 
@@ -51,7 +49,6 @@ public sealed class ProductBuilder
             _description,
             _price,
             _manufacturedDate,
-            _createdDate,
             AddressBuilder.NewObject().ResponseBuild());
 
     public ProductBuilder WithName(string name)
