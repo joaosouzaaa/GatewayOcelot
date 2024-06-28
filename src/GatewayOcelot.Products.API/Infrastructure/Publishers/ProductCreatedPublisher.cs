@@ -23,6 +23,8 @@ public sealed class ProductCreatedPublisher(IOptions<RabbitMQOptions> rabbitMQOp
         using var connection = factory.CreateConnection();
         using var channel = connection.CreateModel();
 
+        channel.QueueDeclare(QueuesConstants.ProductCreatedQueue, false, false, false);
+
         var productCreatedEventJsonString = JsonSerializer.Serialize(productCreatedEvent);
         var body = Encoding.UTF8.GetBytes(productCreatedEventJsonString);
 

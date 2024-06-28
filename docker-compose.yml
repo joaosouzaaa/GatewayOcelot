@@ -1,0 +1,64 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3.9-management"
+    hostname: "rabbitmq"
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+  
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  sql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql-container-recommendations
+    environment:
+      - SA_PASSWORD=Recommendations123
+      - ACCEPT_EULA=Y
+
+  gatewayocelot.gateway:
+    image: ${DOCKER_REGISTRY-}gatewayocelotgateway
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: src/GatewayOcelot.Gateway/Dockerfile
+    ports:
+      - "5000:80"
+      - "5001:443"
+    depends_on:
+      - gatewayocelot.products.api
+      - gatewayocelot.recommendations.api
+
+  gatewayocelot.products.api:
+    image: ${DOCKER_REGISTRY-}gatewayocelotproductapi
+    container_name: products-api
+    build:
+      context: .
+      dockerfile: src/GatewayOcelot.Products.API/Dockerfile
+    ports:
+      - "5220:80"
+      - "7174:443"
+    depends_on:
+      - rabbitmq
+      - mongodb
+ 
+  gatewayocelot.recommendations.api:
+    image: ${DOCKER_REGISTRY-}gatewayocelotrecommendationsapi
+    container_name: recommendations-api
+    build:
+      context: .
+      dockerfile: src/GatewayOcelot.Recommendations.API/Dockerfile
+    ports:
+      - "5184:80"
+      - "7017:443"
+    depends_on:
+      - rabbitmq
+      - sql
