@@ -1,5 +1,5 @@
-﻿using GatewayOcelot.API.DataTransferObjects.Address;
-using GatewayOcelot.API.Entities;
+﻿using GatewayOcelot.Products.API.DataTransferObjects.Address;
+using GatewayOcelot.Products.API.Entities;
 
 namespace UnitTests.TestBuilders;
 

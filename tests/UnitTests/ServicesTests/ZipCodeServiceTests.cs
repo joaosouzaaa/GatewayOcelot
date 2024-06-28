@@ -1,7 +1,7 @@
-﻿using GatewayOcelot.API.Constants;
-using GatewayOcelot.API.DataTransferObjects.Address;
-using GatewayOcelot.API.Interfaces.Mappers;
-using GatewayOcelot.API.Services;
+﻿using GatewayOcelot.Products.API.Constants;
+using GatewayOcelot.Products.API.DataTransferObjects.Address;
+using GatewayOcelot.Products.API.Interfaces.Mappers;
+using GatewayOcelot.Products.API.Services;
 using Moq;
 using Moq.Protected;
 using System.Net;

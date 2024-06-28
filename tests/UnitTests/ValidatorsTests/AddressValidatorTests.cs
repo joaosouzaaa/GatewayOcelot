@@ -1,4 +1,4 @@
-﻿using GatewayOcelot.API.Validators;
+﻿using GatewayOcelot.Products.API.Validators;
 using UnitTests.TestBuilders;
 
 namespace UnitTests.ValidatorsTests;

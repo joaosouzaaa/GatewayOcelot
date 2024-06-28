@@ -1,7 +1,7 @@
-﻿using GatewayOcelot.API.Entities;
-using GatewayOcelot.API.Interfaces.Mappers;
-using GatewayOcelot.API.Mappers;
-using GatewayOcelot.API.Settings.PaginationSettings;
+﻿using GatewayOcelot.Products.API.Entities;
+using GatewayOcelot.Products.API.Interfaces.Mappers;
+using GatewayOcelot.Products.API.Mappers;
+using GatewayOcelot.Products.API.Settings.PaginationSettings;
 using Moq;
 using UnitTests.TestBuilders;
 

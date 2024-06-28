@@ -1,6 +1,6 @@
-﻿using GatewayOcelot.API.Filters;
-using GatewayOcelot.API.Interfaces.Settings;
-using GatewayOcelot.API.Settings.NotificationSettings;
+﻿using GatewayOcelot.Products.API.Filters;
+using GatewayOcelot.Products.API.Interfaces.Settings;
+using GatewayOcelot.Products.API.Settings.NotificationSettings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;

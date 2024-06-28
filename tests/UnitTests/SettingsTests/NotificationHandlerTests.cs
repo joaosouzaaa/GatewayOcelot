@@ -1,4 +1,4 @@
-﻿using GatewayOcelot.API.Settings.NotificationSettings;
+﻿using GatewayOcelot.Products.API.Settings.NotificationSettings;
 
 namespace UnitTests.SettingsTests;
 

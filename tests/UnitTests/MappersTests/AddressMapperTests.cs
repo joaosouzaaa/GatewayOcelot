@@ -1,4 +1,4 @@
-﻿using GatewayOcelot.API.Mappers;
+﻿using GatewayOcelot.Products.API.Mappers;
 using UnitTests.TestBuilders;
 
 namespace UnitTests.MappersTests;

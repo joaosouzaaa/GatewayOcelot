@@ -24,11 +24,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Using Include="Xunit" />
+	  <ProjectReference Include="..\..\src\GatewayOcelot.Products.API\GatewayOcelot.Products.API.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\GatewayOcelot.API\GatewayOcelot.API.csproj" />
+		<Using Include="Xunit" />
 	</ItemGroup>
 
 </Project>

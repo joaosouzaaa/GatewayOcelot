@@ -1,4 +1,4 @@
-﻿using GatewayOcelot.API.Extensions;
+﻿using GatewayOcelot.Products.API.Extensions;
 
 namespace UnitTests.ExtensionTests;
 

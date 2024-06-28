@@ -1,5 +1,5 @@
-﻿using GatewayOcelot.API.Enums;
-using GatewayOcelot.API.Extensions;
+﻿using GatewayOcelot.Products.API.Enums;
+using GatewayOcelot.Products.API.Extensions;
 
 namespace UnitTests.ExtensionTests;
 

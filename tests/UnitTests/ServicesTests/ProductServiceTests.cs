@@ -1,14 +1,16 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using GatewayOcelot.API.DataTransferObjects.Address;
-using GatewayOcelot.API.DataTransferObjects.Product;
-using GatewayOcelot.API.Entities;
-using GatewayOcelot.API.Interfaces.Data.Repositories;
-using GatewayOcelot.API.Interfaces.Mappers;
-using GatewayOcelot.API.Interfaces.Services;
-using GatewayOcelot.API.Interfaces.Settings;
-using GatewayOcelot.API.Services;
-using GatewayOcelot.API.Settings.PaginationSettings;
+using GatewayOcelot.Products.API.Contracts;
+using GatewayOcelot.Products.API.DataTransferObjects.Address;
+using GatewayOcelot.Products.API.DataTransferObjects.Product;
+using GatewayOcelot.Products.API.Entities;
+using GatewayOcelot.Products.API.Interfaces.Infrastructure.Publishers;
+using GatewayOcelot.Products.API.Interfaces.Infrastructure.Repositories;
+using GatewayOcelot.Products.API.Interfaces.Mappers;
+using GatewayOcelot.Products.API.Interfaces.Services;
+using GatewayOcelot.Products.API.Interfaces.Settings;
+using GatewayOcelot.Products.API.Services;
+using GatewayOcelot.Products.API.Settings.PaginationSettings;
 using Moq;
 using UnitTests.TestBuilders;
 
@@ -19,6 +21,7 @@ public class ProductServiceTests
     private readonly Mock<IProductRepository> _productRepositoryMock;
     private readonly Mock<IProductMapper> _productMapperMock;
     private readonly Mock<IZipCodeService> _zipCodeServiceMock;
+    private readonly Mock<IProductCreatedPublisher> _productCreatedPublisherMock;
     private readonly Mock<IValidator<Product>> _validatorMock;
     private readonly Mock<INotificationHandler> _notificationHandlerMock;
     private readonly ProductService _productService;
@@ -28,12 +31,14 @@ public class ProductServiceTests
         _productRepositoryMock = new Mock<IProductRepository>();
         _productMapperMock = new Mock<IProductMapper>();
         _zipCodeServiceMock = new Mock<IZipCodeService>();
+        _productCreatedPublisherMock = new Mock<IProductCreatedPublisher>();
         _validatorMock = new Mock<IValidator<Product>>();
         _notificationHandlerMock = new Mock<INotificationHandler>();
         _productService = new ProductService(
             _productRepositoryMock.Object,
             _productMapperMock.Object,
             _zipCodeServiceMock.Object,
+            _productCreatedPublisherMock.Object,
             _validatorMock.Object,
             _notificationHandlerMock.Object);
     }
@@ -58,6 +63,8 @@ public class ProductServiceTests
 
         _productRepositoryMock.Setup(p => p.InsertOneAsync(It.IsAny<Product>()));
 
+        _productCreatedPublisherMock.Setup(p => p.PublishProductCreatedEventMessage(It.IsAny<ProductCreatedEvent>()));
+
         // A
         await _productService.AddAsync(productCreateRequest);
 
@@ -65,6 +72,7 @@ public class ProductServiceTests
         _notificationHandlerMock.Verify(n => n.AddNotification(It.IsAny<string>(), It.IsAny<string>()), Times.Never());
         _validatorMock.Verify(v => v.ValidateAsync(It.IsAny<Product>(), It.IsAny<CancellationToken>()), Times.Once());
         _productRepositoryMock.Verify(p => p.InsertOneAsync(It.IsAny<Product>()), Times.Once());
+        _productCreatedPublisherMock.Verify(p => p.PublishProductCreatedEventMessage(It.IsAny<ProductCreatedEvent>()), Times.Once());
     }
 
     [Fact]
@@ -89,6 +97,7 @@ public class ProductServiceTests
         _notificationHandlerMock.Verify(n => n.AddNotification(It.IsAny<string>(), It.IsAny<string>()), Times.Once());
         _validatorMock.Verify(v => v.ValidateAsync(It.IsAny<Product>(), It.IsAny<CancellationToken>()), Times.Never());
         _productRepositoryMock.Verify(p => p.InsertOneAsync(It.IsAny<Product>()), Times.Never());
+        _productCreatedPublisherMock.Verify(p => p.PublishProductCreatedEventMessage(It.IsAny<ProductCreatedEvent>()), Times.Never());
     }
 
     [Fact]
@@ -125,6 +134,7 @@ public class ProductServiceTests
         // A
         _notificationHandlerMock.Verify(n => n.AddNotification(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(validationResult.Errors.Count));
         _productRepositoryMock.Verify(p => p.InsertOneAsync(It.IsAny<Product>()), Times.Never());
+        _productCreatedPublisherMock.Verify(p => p.PublishProductCreatedEventMessage(It.IsAny<ProductCreatedEvent>()), Times.Never());
     }
 
     [Fact]
