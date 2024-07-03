@@ -1,7 +1,7 @@
 ﻿using GatewayOcelot.Products.API.DataTransferObjects.Address;
 using GatewayOcelot.Products.API.Entities;
 
-namespace UnitTests.TestBuilders;
+namespace Products.UnitTests.TestBuilders;
 
 public sealed class AddressBuilder
 {

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayOcelot.Products.API"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayOcelot.Recommendations.API", "src\GatewayOcelot.Recommendations.API\GatewayOcelot.Recommendations.API.csproj", "{9CFA1110-C985-4992-A039-60E7998AC70D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.UnitTests", "tests\Products.UnitTests\Product.UnitTests.csproj", "{BF853D50-8C66-48B2-863D-EC0BE7D2A9D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Products.UnitTests", "tests\Products.UnitTests\Products.UnitTests.csproj", "{BF853D50-8C66-48B2-863D-EC0BE7D2A9D1}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1D554213-56ED-428D-A91E-CC5C219D743F}"
 EndProject

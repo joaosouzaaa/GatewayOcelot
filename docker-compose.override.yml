@@ -13,6 +13,7 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
   gatewayocelot.products.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -25,6 +26,7 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
   gatewayocelot.recommendations.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

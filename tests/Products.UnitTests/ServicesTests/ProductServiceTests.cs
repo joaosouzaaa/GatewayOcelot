@@ -12,9 +12,9 @@ using GatewayOcelot.Products.API.Interfaces.Settings;
 using GatewayOcelot.Products.API.Services;
 using GatewayOcelot.Products.API.Settings.PaginationSettings;
 using Moq;
-using UnitTests.TestBuilders;
+using Products.UnitTests.TestBuilders;
 
-namespace UnitTests.ServicesTests;
+namespace Products.UnitTests.ServicesTests;
 
 public class ProductServiceTests
 {

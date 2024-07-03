@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Moq;
 
-namespace UnitTests.FiltersTests;
+namespace Products.UnitTests.FiltersTests;
 
 public sealed class NotificationFilterTests
 {

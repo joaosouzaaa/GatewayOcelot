@@ -3,9 +3,9 @@ version: '3.4'
 services:
   rabbitmq:
     image: "rabbitmq:3.9-management"
+    container_name: rabbitmq
     hostname: "rabbitmq"
     ports:
-      - 5672:5672
       - 15672:15672
     environment:
       RABBITMQ_DEFAULT_USER: "guest"
@@ -17,7 +17,7 @@ services:
     ports:
       - "27017:27017"
 
-  sql:
+  recommendationssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssql-container-recommendations
     environment:
@@ -31,8 +31,8 @@ services:
       context: .
       dockerfile: src/GatewayOcelot.Gateway/Dockerfile
     ports:
-      - "5000:80"
-      - "5001:443"
+      - "5010:80"
+      - "5020:443"
     depends_on:
       - gatewayocelot.products.api
       - gatewayocelot.recommendations.api
@@ -44,8 +44,8 @@ services:
       context: .
       dockerfile: src/GatewayOcelot.Products.API/Dockerfile
     ports:
-      - "5220:80"
-      - "7174:443"
+      - "5022:80"
+      - "5023:443"
     depends_on:
       - rabbitmq
       - mongodb
@@ -57,8 +57,8 @@ services:
       context: .
       dockerfile: src/GatewayOcelot.Recommendations.API/Dockerfile
     ports:
-      - "5184:80"
-      - "7017:443"
+      - "5024:80"
+      - "5025:443"
     depends_on:
       - rabbitmq
-      - sql
+      - recommendationssql

@@ -28,6 +28,8 @@ public sealed class ProductCreatedConsumer(
         var connection = factory.CreateConnection();
         var channel = connection.CreateModel();
 
+        channel.QueueDeclare(QueuesConstants.ProductCreatedQueue, false, false, false);
+
         var consumer = new EventingBasicConsumer(channel);
 
         consumer.Received += async (sender, eventArgs) =>
@@ -49,6 +51,7 @@ public sealed class ProductCreatedConsumer(
             channel.BasicAck(eventArgs.DeliveryTag, false);
         };
 
+        channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
         channel.BasicConsume(queue: QueuesConstants.ProductCreatedQueue, autoAck: true, consumer: consumer);
 
         return Task.CompletedTask;

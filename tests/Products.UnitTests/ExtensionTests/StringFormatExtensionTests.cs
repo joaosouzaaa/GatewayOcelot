@@ -1,6 +1,6 @@
 ﻿using GatewayOcelot.Products.API.Extensions;
 
-namespace UnitTests.ExtensionTests;
+namespace Products.UnitTests.ExtensionTests;
 
 public sealed class StringFormatExtensionTests
 {

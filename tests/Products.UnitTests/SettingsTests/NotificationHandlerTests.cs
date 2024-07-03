@@ -1,6 +1,6 @@
 ﻿using GatewayOcelot.Products.API.Settings.NotificationSettings;
 
-namespace UnitTests.SettingsTests;
+namespace Products.UnitTests.SettingsTests;
 
 public sealed class NotificationHandlerTests
 {

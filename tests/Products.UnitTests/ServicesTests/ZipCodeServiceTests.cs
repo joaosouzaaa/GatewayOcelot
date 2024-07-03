@@ -4,11 +4,11 @@ using GatewayOcelot.Products.API.Interfaces.Mappers;
 using GatewayOcelot.Products.API.Services;
 using Moq;
 using Moq.Protected;
+using Products.UnitTests.TestBuilders;
 using System.Net;
 using System.Text.Json;
-using UnitTests.TestBuilders;
 
-namespace UnitTests.ServicesTests;
+namespace Products.UnitTests.ServicesTests;
 
 public sealed class ZipCodeServiceTests
 {

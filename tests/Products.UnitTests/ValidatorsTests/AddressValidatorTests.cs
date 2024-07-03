@@ -1,7 +1,7 @@
 ﻿using GatewayOcelot.Products.API.Validators;
-using UnitTests.TestBuilders;
+using Products.UnitTests.TestBuilders;
 
-namespace UnitTests.ValidatorsTests;
+namespace Products.UnitTests.ValidatorsTests;
 
 public sealed class AddressValidatorTests
 {

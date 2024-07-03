@@ -3,9 +3,9 @@ using GatewayOcelot.Products.API.Interfaces.Mappers;
 using GatewayOcelot.Products.API.Mappers;
 using GatewayOcelot.Products.API.Settings.PaginationSettings;
 using Moq;
-using UnitTests.TestBuilders;
+using Products.UnitTests.TestBuilders;
 
-namespace UnitTests.MappersTests;
+namespace Products.UnitTests.MappersTests;
 
 public sealed class ProductMapperTests
 {
