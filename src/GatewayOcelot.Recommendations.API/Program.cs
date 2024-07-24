@@ -1,3 +1,4 @@
+using GatewayOcelot.Recommendations.API.Constants;
 using GatewayOcelot.Recommendations.API.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors(CorsNamesConstants.CorsPolicy);
 app.UseAuthorization();
 app.MapControllers();
 app.MigrateDatabase();

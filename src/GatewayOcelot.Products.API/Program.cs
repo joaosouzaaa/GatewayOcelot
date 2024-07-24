@@ -23,7 +23,6 @@ else
     app.UseMiddleware<UnexpectedErrorMiddleware>();
 }
 
-app.UseHttpsRedirection();
 app.UseCors(CorsNamesConstants.CorsPolicy);
 app.UseAuthorization();
 app.MapControllers();

@@ -2,11 +2,11 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/product/add",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5023
+          "Host": "products-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/product/add",
@@ -14,11 +14,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/product/update",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5023
+          "Host": "products-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/product/update",
@@ -26,11 +26,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/product/delete",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5023
+          "Host": "products-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/product/delete",
@@ -38,11 +38,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/product/get-by-id",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5023
+          "Host": "products-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/product/get-by-id",
@@ -50,11 +50,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/product/get-all-paginated",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "gatewayocelot.products.api",
-          "Port": 5023
+          "Host": "products-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/product/get-all-paginated",
@@ -62,11 +62,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/recommendation/get-all",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "recommendations-api",
-          "Port": 443
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/recommendation/get-all",
@@ -74,6 +74,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:5020"
+    "BaseUrl": "http://localhost:5010"
   }
 }

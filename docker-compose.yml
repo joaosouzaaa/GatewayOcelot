@@ -32,7 +32,6 @@ services:
       dockerfile: src/GatewayOcelot.Gateway/Dockerfile
     ports:
       - "5010:80"
-      - "5020:443"
     depends_on:
       - gatewayocelot.products.api
       - gatewayocelot.recommendations.api
@@ -45,7 +44,6 @@ services:
       dockerfile: src/GatewayOcelot.Products.API/Dockerfile
     ports:
       - "5022:80"
-      - "5023:443"
     depends_on:
       - rabbitmq
       - mongodb
@@ -58,7 +56,6 @@ services:
       dockerfile: src/GatewayOcelot.Recommendations.API/Dockerfile
     ports:
       - "5024:80"
-      - "5025:443"
     depends_on:
       - rabbitmq
       - recommendationssql
