@@ -26,9 +26,14 @@ public sealed class ProductCreatedConsumer(
         };
 
         var connection = factory.CreateConnection();
+
         var channel = connection.CreateModel();
 
-        channel.QueueDeclare(QueuesConstants.ProductCreatedQueue, false, false, false);
+        channel.QueueDeclare(
+            queue: QueuesConstants.ProductCreatedQueue,
+            durable: true,
+            exclusive: false,
+            autoDelete: false);
 
         var consumer = new EventingBasicConsumer(channel);
 
@@ -48,11 +53,20 @@ public sealed class ProductCreatedConsumer(
             };
             await recommendationRepository.AddAsync(recommendation);
 
-            channel.BasicAck(eventArgs.DeliveryTag, false);
+            channel.BasicAck(
+                deliveryTag: eventArgs.DeliveryTag,
+                multiple: false);
         };
 
-        channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
-        channel.BasicConsume(queue: QueuesConstants.ProductCreatedQueue, autoAck: true, consumer: consumer);
+        channel.BasicQos(
+            prefetchSize: 0,
+            prefetchCount: 1,
+            global: false);
+
+        channel.BasicConsume(
+            queue: QueuesConstants.ProductCreatedQueue,
+            autoAck: false,
+            consumer: consumer);
 
         return Task.CompletedTask;
     }

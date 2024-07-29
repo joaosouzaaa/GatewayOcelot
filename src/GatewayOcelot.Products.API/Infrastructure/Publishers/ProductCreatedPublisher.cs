@@ -23,11 +23,19 @@ public sealed class ProductCreatedPublisher(IOptions<RabbitMQOptions> rabbitMQOp
         using var connection = factory.CreateConnection();
         using var channel = connection.CreateModel();
 
-        channel.QueueDeclare(QueuesConstants.ProductCreatedQueue, false, false, false);
+        channel.QueueDeclare(
+            queue: QueuesConstants.ProductCreatedQueue,
+            durable: true,
+            exclusive: false,
+            autoDelete: false);
 
         var productCreatedEventJsonString = JsonSerializer.Serialize(productCreatedEvent);
         var body = Encoding.UTF8.GetBytes(productCreatedEventJsonString);
 
-        channel.BasicPublish(exchange: "", routingKey: QueuesConstants.ProductCreatedQueue, basicProperties: null, body: body);
+        channel.BasicPublish(
+            exchange: "",
+            routingKey: QueuesConstants.ProductCreatedQueue,
+            basicProperties: null,
+            body: body);
     }
 }
